@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>AMR SENSOR MISSION — Misi Navigasi Robotika</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ TOAST ============ -->
+<div id="toast-container" aria-live="polite"></div>
+
+<!-- ============ SCREEN 1 : LANDING ============ -->
+<section id="screen-landing" class="screen active">
+  <div class="landing-grid"></div>
+  <div class="landing-wrap">
+    <div class="landing-copy">
+      <div class="mission-tag">PERTEMUAN 7 &middot; ROBOTIKA &middot; SMK</div>
+      <h1 class="landing-title">AMR SENSOR<br>MISSION</h1>
+      <p class="landing-sub">"Bagaimana robot mengetahui posisi, pergerakan, dan lingkungan di sekitarnya?"</p>
+
+      <div class="amr-illustration" aria-hidden="true">
+        <svg viewBox="0 0 320 220" class="amr-svg">
+          <ellipse cx="160" cy="196" rx="120" ry="10" fill="rgba(47,211,200,0.08)"/>
+          <rect x="70" y="90" width="180" height="80" rx="14" class="amr-body"/>
+          <rect x="70" y="90" width="180" height="24" rx="12" class="amr-band"/>
+          <circle cx="110" cy="182" r="20" class="amr-wheel"/>
+          <circle cx="210" cy="182" r="20" class="amr-wheel"/>
+          <circle cx="110" cy="182" r="7" class="amr-hub"/>
+          <circle cx="210" cy="182" r="7" class="amr-hub"/>
+          <rect x="140" y="52" width="40" height="38" rx="8" class="amr-head"/>
+          <circle cx="152" cy="70" r="5" class="amr-eye"/>
+          <circle cx="168" cy="70" r="5" class="amr-eye"/>
+          <line x1="160" y1="52" x2="160" y2="32" class="amr-antenna"/>
+          <circle cx="160" cy="26" r="6" class="amr-antenna-tip"/>
+          <g class="amr-scan">
+            <path d="M 160 130 L 250 60" class="scan-line"/>
+            <path d="M 160 130 L 260 130" class="scan-line"/>
+            <path d="M 160 130 L 250 200" class="scan-line"/>
+          </g>
+          <rect x="92" y="120" width="18" height="34" rx="3" class="amr-sensor-box"/>
+          <rect x="210" y="120" width="18" height="34" rx="3" class="amr-sensor-box"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="landing-card">
+      <h2 class="landing-card-title">Mulai Misimu</h2>
+      <p class="landing-card-desc">Isi data dirimu untuk membuka ruang kendali AMR Sensor Mission.</p>
+      <form id="form-identity" novalidate>
+        <label class="field">
+          <span>Nama Lengkap</span>
+          <input type="text" id="input-nama" placeholder="Contoh: Raka Pratama" autocomplete="off">
+        </label>
+        <label class="field">
+          <span>Kelas</span>
+          <input type="text" id="input-kelas" placeholder="Contoh: XI TOI 2" autocomplete="off">
+        </label>
+        <label class="field">
+          <span>Kelompok</span>
+          <select id="input-kelompok">
+            <option value="">Pilih Kelompok</option>
+            <option value="1">Kelompok 1 — AMR di Gudang</option>
+            <option value="2">Kelompok 2 — AMR Outdoor</option>
+            <option value="3">Kelompok 3 — Lorong Sempit</option>
+            <option value="4">Kelompok 4 — Area Banyak Obstacle</option>
+            <option value="5">Kelompok 5 — Mengenali Tanda/Objek</option>
+          </select>
+        </label>
+        <p id="identity-error" class="field-error" hidden>Lengkapi nama, kelas, dan kelompok untuk memulai misi.</p>
+        <button type="submit" class="btn btn-primary btn-block" id="btn-mulai">
+          <span>MULAI MISI</span>
+          <svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCREEN 2 : APP ============ -->
+<div id="screen-app" class="screen">
+
+  <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Buka menu">
+    <svg viewBox="0 0 24 24" width="22" height="22"><path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+  <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark">AMR</div>
+      <div class="brand-text">SENSOR<br>MISSION</div>
+    </div>
+
+    <nav class="sidebar-nav" id="sidebar-nav">
+      <button class="nav-item active" data-page="dashboard">
+        <span class="nav-ico">◈</span><span>Beranda</span>
+      </button>
+      <button class="nav-item" data-page="kenali">
+        <span class="nav-ico">◈</span><span>Kenali Sensor</span>
+      </button>
+      <button class="nav-item" data-page="detective">
+        <span class="nav-ico">◈</span><span>Sensor Detective</span>
+      </button>
+      <button class="nav-item" data-page="misi">
+        <span class="nav-ico">◈</span><span>Misi Kelompok</span>
+      </button>
+      <button class="nav-item" data-page="rancang">
+        <span class="nav-ico">◈</span><span>Rancang Sistem</span>
+      </button>
+      <button class="nav-item" data-page="uji">
+        <span class="nav-ico">◈</span><span>Uji Kondisi</span>
+      </button>
+      <button class="nav-item" data-page="refleksi">
+        <span class="nav-ico">◈</span><span>Refleksi</span>
+      </button>
+      <button class="nav-item" data-page="hasil">
+        <span class="nav-ico">◈</span><span>Hasil</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button id="btn-theme" class="btn-ghost btn-block" type="button">☾ Mode Terang</button>
+      <button id="btn-reset" class="btn-danger-ghost btn-block" type="button">Reset Progress</button>
+    </div>
+  </aside>
+
+  <main class="content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="topbar-title" id="topbar-title">Dashboard Misi</div>
+        <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-fill" id="global-progress-fill"></div>
+        </div>
+        <div class="progress-label"><span id="global-progress-text">0%</span> Progress Misi</div>
+      </div>
+      <div class="student-chip" id="student-chip">
+        <div class="chip-avatar">🤖</div>
+        <div class="chip-info">
+          <div class="chip-name" id="chip-name">—</div>
+          <div class="chip-meta" id="chip-meta">—</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="page-scroll">
+
+      <!-- PAGE: DASHBOARD -->
+      <section id="page-dashboard" class="page active">
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-label">Nama</div>
+            <div class="stat-value" id="dash-nama">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Kelas</div>
+            <div class="stat-value" id="dash-kelas">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Kelompok</div>
+            <div class="stat-value" id="dash-kelompok">—</div>
+          </div>
+          <div class="stat-card highlight">
+            <div class="stat-label">Nilai Sementara</div>
+            <div class="stat-value" id="dash-nilai">0 / 100</div>
+          </div>
+        </div>
+
+        <h3 class="section-heading">Status Misi</h3>
+        <div class="mission-status-grid" id="mission-status-grid"></div>
+
+        <h3 class="section-heading">Lencana</h3>
+        <div class="badge-row" id="badge-row"></div>
+      </section>
+
+      <!-- PAGE: KENALI SENSOR -->
+      <section id="page-kenali" class="page">
+        <p class="page-intro">Jelajahi keenam sensor navigasi AMR. Buka setiap kartu untuk mempelajari fungsi, prinsip kerja, dan keterbatasannya sebelum melangkah ke misi.</p>
+        <div class="kenali-status" id="kenali-status"></div>
+        <div class="sensor-grid" id="sensor-grid"></div>
+      </section>
+
+      <!-- PAGE: SENSOR DETECTIVE -->
+      <section id="page-detective" class="page">
+        <p class="page-intro">Uji pemahamanmu. Baca kebutuhan robot, lalu tentukan sensor yang paling tepat.</p>
+        <div class="tab-row">
+          <button class="tab-btn active" data-tab="quiz-detective">Sensor Detective (12 Soal)</button>
+          <button class="tab-btn" data-tab="quiz-data">Data Sensor (6 Soal)</button>
+        </div>
+        <div id="tab-quiz-detective" class="tab-panel active">
+          <div id="detective-container"></div>
+        </div>
+        <div id="tab-quiz-data" class="tab-panel">
+          <div id="datasensor-container"></div>
+        </div>
+      </section>
+
+      <!-- PAGE: MISI KELOMPOK -->
+      <section id="page-misi" class="page">
+        <p class="page-intro">Pilih skenario sesuai kelompokmu, lalu tentukan sensor apa saja yang dibutuhkan.</p>
+        <div class="mission-grid" id="mission-grid"></div>
+        <div id="mission-task" class="mission-task" hidden>
+          <h3 class="section-heading">Sensor apa saja yang Anda perlukan untuk menyelesaikan misi?</h3>
+          <div class="sensor-check-grid" id="sensor-check-grid"></div>
+          <div id="sensor-reasoning-list"></div>
+          <button class="btn btn-primary" id="btn-save-mission-task">SIMPAN JAWABAN MISI</button>
+          <div class="save-note" id="mission-save-note"></div>
+        </div>
+      </section>
+
+      <!-- PAGE: RANCANG SISTEM -->
+      <section id="page-rancang" class="page">
+        <h3 class="section-heading">1 &middot; Konsep Koordinat</h3>
+        <p class="page-intro">Robot harus bergerak dari A &rarr; B &rarr; C &rarr; D mengikuti koordinat berikut:</p>
+        <div class="coord-box">
+          <span>A = (0,0)</span><span>B = (5,0)</span><span>C = (5,5)</span><span>D = (10,5)</span>
+        </div>
+        <label class="field">
+          <span>Informasi apa yang diperlukan agar robot mengetahui posisi/perpindahannya? Jelaskan sensor apa saja yang berperan.</span>
+          <textarea id="coord-answer" rows="3" placeholder="Tulis jawabanmu..."></textarea>
+        </label>
+        <div class="note-box">
+          <strong>Catatan penting:</strong> koordinat geografis GPS berbeda dengan estimasi posisi robot di lingkungan indoor. Sistem navigasi AMR sering menggabungkan beberapa sensor sekaligus (misalnya encoder + IMU untuk odometri, dibantu LiDAR untuk koreksi posisi).
+        </div>
+
+        <h3 class="section-heading">2 &middot; Rancang Alur Sistem Sensor</h3>
+        <p class="page-intro">Susun alur: pilih sensor, lalu lengkapi data &rarr; informasi navigasi &rarr; keputusan &rarr; gerak robot.</p>
+        <div class="builder-wrap">
+          <div class="builder-palette" id="builder-palette"></div>
+          <div class="builder-chain" id="builder-chain">
+            <div class="chain-step" data-step="sensor"><div class="chain-label">SENSOR</div><div class="chain-value" data-slot="sensor">Pilih sensor →</div></div>
+            <div class="chain-arrow">↓</div>
+            <div class="chain-step" data-step="data"><div class="chain-label">DATA</div><div class="chain-value" data-slot="data">—</div></div>
+            <div class="chain-arrow">↓</div>
+            <div class="chain-step" data-step="info"><div class="chain-label">INFORMASI NAVIGASI</div><div class="chain-value" data-slot="info">—</div></div>
+            <div class="chain-arrow">↓</div>
+            <div class="chain-step" data-step="decision"><div class="chain-label">KEPUTUSAN</div><div class="chain-value" data-slot="decision">—</div></div>
+            <div class="chain-arrow">↓</div>
+            <div class="chain-step" data-step="action"><div class="chain-label">GERAK ROBOT</div><div class="chain-value" data-slot="action">—</div></div>
+          </div>
+        </div>
+        <button class="btn btn-secondary" id="btn-add-chain">+ TAMBAHKAN KE RANCANGAN</button>
+        <div id="chain-list" class="chain-list"></div>
+
+        <h3 class="section-heading">3 &middot; Simulasi Peta Navigasi</h3>
+        <p class="page-intro">Klik titik-titik pada peta secara berurutan untuk menyusun jalur dari START menuju DESTINATION, hindari OBSTACLE (kotak merah).</p>
+        <div class="map-wrap">
+          <canvas id="nav-canvas" width="640" height="360"></canvas>
+        </div>
+        <div class="map-controls">
+          <button class="btn btn-secondary" id="btn-clear-path">HAPUS JALUR</button>
+          <button class="btn btn-primary" id="btn-simulate">SIMULASIKAN</button>
+        </div>
+      </section>
+
+      <!-- PAGE: UJI KONDISI -->
+      <section id="page-uji" class="page">
+        <p class="page-intro">Rancanganmu akan diuji dengan beberapa perubahan kondisi lapangan. Jawab dengan jujur berdasarkan pemahamanmu.</p>
+        <div id="condition-list"></div>
+      </section>
+
+      <!-- PAGE: REFLEKSI -->
+      <section id="page-refleksi" class="page">
+        <h2 class="section-heading-lg">REFLEKSI MISI</h2>
+        <form id="reflection-form"></form>
+        <button class="btn btn-primary" id="btn-save-reflection">SIMPAN REFLEKSI</button>
+        <div class="save-note" id="reflection-save-note"></div>
+      </section>
+
+      <!-- PAGE: HASIL -->
+      <section id="page-hasil" class="page">
+        <div id="hasil-printable">
+          <h2 class="section-heading-lg">HASIL RANCANGAN SISTEM SENSOR AMR</h2>
+          <div id="hasil-content"></div>
+          <h3 class="section-heading">Rubrik Penilaian Proyek</h3>
+          <div class="table-wrap">
+            <table class="rubric-table">
+              <thead>
+                <tr><th>Aspek</th><th>4</th><th>3</th><th>2</th><th>1</th></tr>
+              </thead>
+              <tbody id="rubric-body"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="hasil-actions no-print">
+          <button class="btn btn-secondary" id="btn-print">CETAK HASIL</button>
+          <button class="btn btn-primary" id="btn-save-json">SIMPAN HASIL (JSON)</button>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- ============ MODAL: SENSOR DETAIL ============ -->
+<div id="modal-sensor" class="modal">
+  <div class="modal-card">
+    <button class="modal-close" id="modal-sensor-close" aria-label="Tutup">✕</button>
+    <div id="modal-sensor-content"></div>
+  </div>
+</div>
+
+<!-- ============ MODAL: CONFIRM RESET ============ -->
+<div id="modal-confirm" class="modal">
+  <div class="modal-card modal-card-sm">
+    <h3>Apakah Anda yakin ingin menghapus seluruh hasil?</h3>
+    <p>Semua progres, jawaban, dan skor akan dihapus permanen dari perangkat ini.</p>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" id="btn-cancel-reset">BATAL</button>
+      <button class="btn btn-danger" id="btn-confirm-reset">HAPUS SEMUA</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
